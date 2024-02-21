@@ -1,4 +1,4 @@
-package com.nlwexpertjava.nlwexpertjava.modules.students.entities;
+package com.nlwexpertjava.nlwexpertjava.modules.questions.entities;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -11,33 +11,31 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity(name = "students")
+@Entity(name = "questions")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class StudentEntity {
+public class QuestionEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(unique = true, nullable = false)
-    private String email;
+    @Column(length = 50)
+    private String technology;
 
-    // OneToOne
-    // OneToMany
-    // ManyToOne
-    // ManyToMany
+    private String description;
 
-    @OneToMany(mappedBy = "studentEntity")
-    private List<CertificationStudentEntity> certificationStudentEntity;
+    @OneToMany
+    @JoinColumn(name = "question_id")
+    private List<AlternativesEntity> alternatives;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
-
 }
